@@ -1,0 +1,76 @@
+variable "resource_group_location" {
+  default     = "eastus2"
+  description = "Localização do Resource Group."
+}
+
+variable "resource_group_name" {
+  default     = "rg-prova-devops"
+  description = "Nome do Resource Group."
+}
+
+variable "container_registry_name" {
+    default = "containerProvaDevops"
+    description = "Nome do Container Registry."
+}
+
+variable "container_registry_location" {
+  default     = "eastus2"
+  description = "Localização do Container Registry."
+}
+
+variable "container_registry_sku" {
+  default     = "Premium"
+  description = "Size do Container Registry."  
+}
+
+variable "virtual_network_name" {
+  default     = "vnet-devops"
+  description = "Nome da VNET."  
+}
+
+variable "virtual_network_range" {
+  default     = ["10.0.0.0/16"]
+  description = "Range da VNET."  
+}
+
+variable "subnet_name" {
+  default     = "subnet-devops"
+  description = "Nome da Subnet."  
+}
+
+variable "subnet_range" {
+  default     = ["10.0.2.0/24"]
+  description = "Range da Subnet."  
+}
+
+variable "storage_account_name" {
+  default = "storagedevops001"
+}
+
+variable "storage_account_location" {
+  default = "eastus2"
+}
+
+variable "storage_account_tier" {
+  default = "Standard"
+}
+
+variable "storage_account_replication" {
+  default = "LRS"
+}
+
+variable "app_service_plan_name" {
+  default = "webapp-asp-devops"
+}
+
+variable "app_service_plan_ostype" {
+  default = "Linux"
+}
+
+variable "app_service_plan_sku" {
+  default = "F1"
+}
+
+variable "webapp_name" {
+  default = "webapp-devops001"
+}
