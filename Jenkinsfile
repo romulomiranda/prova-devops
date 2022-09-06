@@ -1,8 +1,5 @@
 pipeline {
     agent any
-        tools {
-            go 'go1.14'
-        }
         
         environment {
             registryName = "containerprovadevops.azurecr.io/prova-devops"
@@ -16,12 +13,6 @@ pipeline {
         stage ('Acesso ao Projeto GitHub') {
             steps {
             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/romulomiranda/prova-devops']]])
-            }
-        }
-
-        stage('Pre Test') {
-            steps {
-                sh 'go run .'
             }
         }
 
