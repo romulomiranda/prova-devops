@@ -74,3 +74,7 @@ variable "app_service_plan_sku" {
 variable "webapp_name" {
   default = "webapp-devops001"
 }
+
+variable "azurerm_app_service_name" {
+  default = "DevOps-Prova"
+}

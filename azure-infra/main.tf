@@ -44,7 +44,7 @@ resource "azurerm_service_plan" "appserviceplan" {
   sku_name            = var.app_service_plan_sku
 }
 
-resource "azurerm_linux_web_app" "webapp" {
+/*resource "azurerm_linux_web_app" "webapp" {
   name                  = var.webapp_name
   location              = var.resource_group_location
   resource_group_name   = var.resource_group_name
@@ -55,4 +55,32 @@ resource "azurerm_linux_web_app" "webapp" {
 #    minimum_tls_version = "1.2"
   always_on = false
   }
+}
+*/
+
+resource "azurerm_app_service" "dockerapp" {
+  name                = var.azurerm_app_service_name
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
+  app_service_plan_id = "${azurerm_service_plan.appserviceplan.id}"
+
+  # Do not attach Storage by default
+  app_settings {
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
+
+    DOCKER_REGISTRY_SERVER_URL      = "containerprovadevops.azurecr.io"
+    DOCKER_REGISTRY_SERVER_USERNAME = "containerProvaDevops"
+    DOCKER_REGISTRY_SERVER_PASSWORD = "4CxDkpUVNqo371FmraMp=K53v9FgV6NZ"
+   
+  }
+
+  # Configure Docker Image to load on start
+  site_config {
+    linux_fx_version = "DOCKER|containerProvaDevops/prova-devops:latest"
+    always_on        = "true"
+  }
+
+  /*identity {
+    type = "SystemAssigned"
+  }*/
 }
