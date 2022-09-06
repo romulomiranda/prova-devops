@@ -6,7 +6,11 @@ pipeline {
             dockerImage = ""
             registryUrl = "containerprovadevops.azurecr.io"
             nameImage = "prova-devops"
-    }
+        }
+
+        tools {
+            go 'go1.14'
+        }
     
     stages {
         stage ('Acesso ao Projeto GitHub') {
@@ -15,6 +19,12 @@ pipeline {
             }
         }
 
+        stage('Pre Test') {
+            steps {
+                sh 'go run .'
+            }
+        }
+            
         stage ('Build Docker image') {
             steps {
                 script {
