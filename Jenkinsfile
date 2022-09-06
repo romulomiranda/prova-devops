@@ -1,15 +1,15 @@
 pipeline {
     agent any
+        tools {
+            go 'go1.14'
+        }
+        
         environment {
             registryName = "containerprovadevops.azurecr.io/prova-devops"
             registryCredential = '032a0634-3632-4f4a-8c6e-c60bfdaf0f00'
             dockerImage = ""
             registryUrl = "containerprovadevops.azurecr.io"
             nameImage = "prova-devops"
-        }
-
-        tools {
-            go 'go1.14'
         }
     
     stages {
@@ -24,7 +24,7 @@ pipeline {
                 sh 'go run .'
             }
         }
-            
+
         stage ('Build Docker image') {
             steps {
                 script {
