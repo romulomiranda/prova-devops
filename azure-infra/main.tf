@@ -51,48 +51,20 @@ resource "azurerm_linux_web_app" "webapp" {
   service_plan_id       = azurerm_service_plan.appserviceplan.id
 #  https_only            = true
 #  always_on = false
+  app_settings {
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
+    DOCKER_REGISTRY_SERVER_URL      = "containerprovadevops.azurecr.io"
+    DOCKER_REGISTRY_SERVER_USERNAME = "containerProvaDevops"
+    DOCKER_REGISTRY_SERVER_PASSWORD = "kmIMYlooLCMhVA+3w7FRlDJ3vO/Deanr"
+  }
+
   site_config { 
 #    minimum_tls_version = "1.2"
     always_on = false
 
     application_stack {
       docker_image = "${azurerm_container_registry.acr.login_server}/prova-devops"
-      docker_tag = "latest"
+#      docker_tag = "latest"
     }
   }
-  app_settings {
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
-
-    DOCKER_REGISTRY_SERVER_URL      = "containerprovadevops.azurecr.io"
-    DOCKER_REGISTRY_SERVER_USERNAME = "containerProvaDevops"
-    DOCKER_REGISTRY_SERVER_PASSWORD = "4CxDkpUVNqo371FmraMp=K53v9FgV6NZ"
-  }
-}
-
-
-resource "azurerm_app_service" "dockerapp" {
-  name                = var.azurerm_app_service_name
-  location            = var.resource_group_location
-  resource_group_name = var.resource_group_name
-  app_service_plan_id = "${azurerm_service_plan.appserviceplan.id}"
-
-  # Do not attach Storage by default
-  app_settings {
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
-
-    DOCKER_REGISTRY_SERVER_URL      = "containerprovadevops.azurecr.io"
-    DOCKER_REGISTRY_SERVER_USERNAME = "containerProvaDevops"
-    DOCKER_REGISTRY_SERVER_PASSWORD = "4CxDkpUVNqo371FmraMp=K53v9FgV6NZ"
-   
-  }
-
-  # Configure Docker Image to load on start
-  site_config {
-    linux_fx_version = "DOCKER|containerProvaDevops/prova-devops:latest"
-    always_on        = "true"
-  }
-
-  /*identity {
-    type = "SystemAssigned"
-  }*/
 }
