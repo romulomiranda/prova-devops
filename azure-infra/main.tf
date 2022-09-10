@@ -44,7 +44,7 @@ resource "azurerm_service_plan" "appserviceplan" {
   sku_name            = var.app_service_plan_sku
 }
 
-/*resource "azurerm_linux_web_app" "webapp" {
+resource "azurerm_linux_web_app" "webapp" {
   name                  = var.webapp_name
   location              = var.resource_group_location
   resource_group_name   = var.resource_group_name
@@ -53,10 +53,22 @@ resource "azurerm_service_plan" "appserviceplan" {
 #  always_on = false
   site_config { 
 #    minimum_tls_version = "1.2"
-  always_on = false
+    always_on = false
+
+    application_stack {
+      docker_image = "${azurerm_container_registry.acr.login_server}/prova-devops"
+      docker_tag = "latest"
+    }
+  }
+  app_settings {
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
+
+    DOCKER_REGISTRY_SERVER_URL      = "containerprovadevops.azurecr.io"
+    DOCKER_REGISTRY_SERVER_USERNAME = "containerProvaDevops"
+    DOCKER_REGISTRY_SERVER_PASSWORD = "4CxDkpUVNqo371FmraMp=K53v9FgV6NZ"
   }
 }
-*/
+
 
 resource "azurerm_app_service" "dockerapp" {
   name                = var.azurerm_app_service_name
