@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        stage ('Build Docker image') {
+        stage ('Build Docker Image') {
             steps {
                 script {
                     dockerImage = docker.build registryName
@@ -25,7 +25,7 @@ pipeline {
             }
         }
         
-        stage ('Teste') {
+        stage ('Test') {
             steps {
                 sh 'go test -coverprofile=coverage.out ./...'
             }

@@ -8,8 +8,8 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = var.resource_group_name
   location            = var.container_registry_location
   sku                 = var.container_registry_sku
-  admin_enabled       = false
-  public_network_access_enabled = false
+  admin_enabled       = true
+  public_network_access_enabled = true
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -24,7 +24,7 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
   address_prefixes     = var.subnet_range
-  service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
+  service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage", "Microsoft.Web"]
 }
 
 resource "azurerm_storage_account" "stgraccount" {
@@ -49,22 +49,35 @@ resource "azurerm_linux_web_app" "webapp" {
   location              = var.resource_group_location
   resource_group_name   = var.resource_group_name
   service_plan_id       = azurerm_service_plan.appserviceplan.id
-#  https_only            = true
-#  always_on = false
-  app_settings {
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
-    DOCKER_REGISTRY_SERVER_URL      = "containerprovadevops.azurecr.io"
-    DOCKER_REGISTRY_SERVER_USERNAME = "containerProvaDevops"
-    DOCKER_REGISTRY_SERVER_PASSWORD = "kmIMYlooLCMhVA+3w7FRlDJ3vO/Deanr"
-  }
 
   site_config { 
-#    minimum_tls_version = "1.2"
     always_on = false
-
+    container_registry_use_managed_identity = "true"
     application_stack {
-      docker_image = "${azurerm_container_registry.acr.login_server}/prova-devops"
-#      docker_tag = "latest"
+      docker_image = var.webapp_docker_image
+      docker_image_tag = var.webapp_docker_tag
     }
+  }
+
+  app_settings = {
+    "DOCKER_REGISTRY_SERVER_USERNAME" = var.docker_username
+    "DOCKER_REGISTRY_SERVER_URL" = data.azurerm_key_vault_secret.dockerurl.value
+    "DOCKER_REGISTRY_SERVER_PASSWORD" = data.azurerm_key_vault_secret.dockerpass.value
+    "DOCKER_ENABLE_CI" = "true"
+    "WEBSITES_PORT" = "5000"
+  }
+
+  storage_account {
+    access_key = data.azurerm_key_vault_secret.storageaccesskey.value
+    account_name = var.storage_account_name
+    mount_path = "/src"
+    name = "devops"
+    share_name = "devops"
+    type = "AzureFiles"
+  }
+
+  identity {
+    identity_ids = []
+    type = "SystemAssigned"
   }
 }

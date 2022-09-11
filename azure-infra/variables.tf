@@ -68,13 +68,33 @@ variable "app_service_plan_ostype" {
 }
 
 variable "app_service_plan_sku" {
-  default = "F1"
+  default = "B1"
 }
 
 variable "webapp_name" {
   default = "webapp-devops001"
 }
 
+variable "webapp_docker_image" {
+  default = "containerprovadevops.azurecr.io/prova-devops"
+}
+
+variable "webapp_docker_tag" {
+  default = "1.0"
+}
+
 variable "azurerm_app_service_name" {
   default = "DevOps-Prova"
+}
+
+variable "docker_username" {
+  default = "containerProvaDevops"
+}
+
+variable "tenant_id" {
+  default = "0d063dd2-62e8-4c33-9ed1-b9756d208d36"
+}
+
+variable "principal_id" {
+  default= "afe6bf2a-0b6f-4c63-a16a-d35e5f2b39ec"
 }
