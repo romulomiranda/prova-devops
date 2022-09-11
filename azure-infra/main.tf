@@ -52,7 +52,7 @@ resource "azurerm_linux_web_app" "webapp" {
 
   site_config { 
     always_on = false
-    container_registry_use_managed_identity = "true"
+    container_registry_use_managed_identity = "false"
     application_stack {
       docker_image = var.webapp_docker_image
       docker_image_tag = var.webapp_docker_tag
@@ -65,6 +65,7 @@ resource "azurerm_linux_web_app" "webapp" {
     "DOCKER_REGISTRY_SERVER_PASSWORD" = data.azurerm_key_vault_secret.dockerpass.value
     "DOCKER_ENABLE_CI" = "true"
     "WEBSITES_PORT" = "5000"
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
   }
 
   storage_account {
