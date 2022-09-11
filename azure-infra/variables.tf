@@ -80,7 +80,7 @@ variable "webapp_docker_image" {
 }
 
 variable "webapp_docker_tag" {
-  default = "1.0"
+  default = "latest"
 }
 
 variable "azurerm_app_service_name" {
