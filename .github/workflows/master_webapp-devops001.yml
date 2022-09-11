@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: containerprovadevops.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d218b1825eec4180a77ddaa67aa4298b }}/prova-devops:${{ github.sha }}
+        tags: containerprovadevops.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d218b1825eec4180a77ddaa67aa4298b }}/prova-devops:1.0
         file: ./Dockerfile
 
   deploy:
