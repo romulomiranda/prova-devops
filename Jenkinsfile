@@ -20,7 +20,8 @@ pipeline {
         stage ('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build ${registryName}:${versionImage}
+                    def imageWithTag = ${registryName}:${versionImage}
+                    dockerImage = docker.build imageWithTag
                 }
             }
         }
