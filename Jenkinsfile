@@ -6,8 +6,6 @@ pipeline {
         registryCredential = '032a0634-3632-4f4a-8c6e-c60bfdaf0f00'
         dockerImage = ""
         registryUrl = "containerprovadevops.azurecr.io"
-        nameImage = "prova-devops"
-        versionImage = "1.0"
     }
     
     stages {
@@ -20,8 +18,7 @@ pipeline {
         stage ('Build Docker Image') {
             steps {
                 script {
-                    def imageWithTag = ${registryName}:${versionImage}
-                    dockerImage = docker.build imageWithTag
+                    dockerImage = docker.build registryName
                 }
             }
         }
