@@ -7,7 +7,7 @@ pipeline {
         dockerImage = ""
         registryUrl = "containerprovadevops.azurecr.io"
         nameImage = "prova-devops"
-        versionImage = "1.0"
+        versionImage = "latest"
     }
     
     stages {
