@@ -27,7 +27,7 @@ pipeline {
         
         stage ('Teste') {
             steps {
-                sh 'go version'
+                sh 'go test -coverprofile=coverage.out ./...'
             }
         }
 
