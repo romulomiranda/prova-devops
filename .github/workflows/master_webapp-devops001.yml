@@ -48,4 +48,4 @@ jobs:
         app-name: 'webapp-devops001'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_733dc21a4b1e447982b71d33d6998e38 }}
-        images: 'containerprovadevops.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d218b1825eec4180a77ddaa67aa4298b }}/prova-devops:${{ github.sha }}'
+        images: 'containerprovadevops.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d218b1825eec4180a77ddaa67aa4298b }}/prova-devops:1.0'
