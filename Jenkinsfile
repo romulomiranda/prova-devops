@@ -27,9 +27,7 @@ pipeline {
         
         stage ('Teste') {
             steps {
-                def imageTest = docker.build registryName
-                sh "docker run --rm -d --name ${nameImage} -d -p 5000:5000 ${registryName}:${versionImage}"
-                sh "docker exec -it ${nameImage} /bin/sh"
+                sh 'go --version'
             }
         }
 
