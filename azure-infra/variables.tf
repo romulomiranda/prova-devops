@@ -75,9 +75,9 @@ variable "webapp_name" {
   default = "webapp-devops001"
 }
 
-/*variable "webapp_docker_image" {
-  default = "${azurerm_container_registry.acr.login_server}/prova-devops"
-}*/
+variable "webapp_docker_image" {
+  default = "prova-devops"
+}
 
 variable "webapp_docker_tag" {
   default = "1.0"
