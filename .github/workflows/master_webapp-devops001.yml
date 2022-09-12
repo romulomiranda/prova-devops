@@ -7,7 +7,9 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
+#  workflow_dispatch:
+    tags:
+      - '1.*'
 
 jobs:
   build:
@@ -38,5 +40,3 @@ jobs:
         push: true
         tags: containerprovadevops.azurecr.io/prova-devops:1.0
         file: ./Dockerfile
-        cache-from: type:registry,ref=${{ secrets.AzureAppService_ContainerUsername_d218b1825eec4180a77ddaa67aa4298b }}/prova-devops:buildcache
-        cache-to: type:registry,ref=${{ secrets.AzureAppService_ContainerUsername_d218b1825eec4180a77ddaa67aa4298b }}/prova-devops:buildcache,mode=max
