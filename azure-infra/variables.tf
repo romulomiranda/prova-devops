@@ -76,7 +76,7 @@ variable "webapp_name" {
 }
 
 variable "webapp_docker_image" {
-  default = "prova-devops"
+  default = "containerprovadevops.azurecr.io/prova-devops"
 }
 
 variable "webapp_docker_tag" {
